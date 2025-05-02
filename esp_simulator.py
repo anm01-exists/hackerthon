@@ -3,7 +3,7 @@ import requests
 import random
 
 # Replace this with your actual backend URL
-BACKEND_URL = "http://127.0.0.1:8000/imu"
+BACKEND_URL = "https://hackerthon-1-72ma.onrender.com/imu"
 
 def generate_fake_imu():
     return {

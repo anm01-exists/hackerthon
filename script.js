@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://127.0.0.1:8000/imu"; // Update this!
+const BACKEND_URL = "https://hackerthon-1-72ma.onrender.com/imu"; // Update this!
 
     async function fetchIMUData() {
       try {
