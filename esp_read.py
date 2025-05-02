@@ -1,55 +1,60 @@
 import serial
-import time
 import requests
+import time
 
-# Update the port name with the correct COM port
-SERIAL_PORT = 'COM10'  # Replace with your actual COM port (you can check it in Device Manager)
-BAUD_RATE = 115200  # Make sure this matches the ESP8266 baud rate
+# Define the serial port and baud rate
+SERIAL_PORT = 'COM10'  # Change this to your correct serial port (e.g., COM10 on Windows, /dev/ttyUSB0 on Linux/Mac)
+BAUD_RATE = 115200  # Must match the baud rate of your ESP8266
 
-# Backend URL where you want to send the data
-BACKEND_URL = 'https://hackerthon-1-72ma.onrender.com/imu'  # Replace with your backend URL
+# Backend URL
+BACKEND_URL = 'https://hackerthon-1-72ma.onrender.com/imu'  # Replace with your actual backend URL
 
-def send_to_backend(data):
+# Open serial port
+ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=2)
+
+# Function to send data to the backend
+def send_data_to_backend(data):
     try:
-        response = requests.post(BACKEND_URL, json={"imu_data": data})
+        response = requests.post(BACKEND_URL, json=data)
         if response.status_code == 200:
             print("Data successfully sent to backend!")
         else:
             print(f"Failed to send data to backend. Status code: {response.status_code}")
-    except requests.exceptions.RequestException as e:
+    except Exception as e:
         print(f"Error sending data to backend: {e}")
 
+# Main loop to read data from serial and send to backend
 def main():
-    try:
-        # Open the serial connection
-        with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=2) as ser:
-            print(f"Connected to {SERIAL_PORT} at {BAUD_RATE} baud.")
-            
-            # Wait for some time to ensure ESP8266 is ready
-            time.sleep(2)
+    while True:
+        try:
+            # Read the line from the serial monitor
+            line = ser.readline().decode('utf-8').strip()
 
-            while True:
-                # Read the serial data (a line of text)
-                raw_line = ser.readline()
+            if line:
+                # Print raw data from ESP8266
+                print(f"Received raw data: {line}")
 
-                # Check if raw_line is not empty
-                if raw_line:
-                    try:
-                        # Attempt to decode the byte data to UTF-8, ignoring errors
-                        line = raw_line.decode("utf-8", errors="ignore").strip()
-                        print(f"Received: {line}")
-                        
-                        # Send data to backend
-                        send_to_backend(line)
+                # Format the data into a dictionary
+                # Assuming the data format is 'ax: -0.91, ay: -0.6, az: -1.86, gx: -80.21, gy: -211.59, gz: 70.1'
+                data_dict = {}
+                try:
+                    # Split by commas and create a dictionary
+                    for item in line.split(','):
+                        key, value = item.split(':')
+                        data_dict[key.strip()] = float(value.strip())
 
-                    except UnicodeDecodeError as e:
-                        print(f"Error decoding data: {e}")
-                        print(f"Raw data: {raw_line}")
-                else:
-                    print("No data received or timeout reached.")
+                    # Send data to backend
+                    send_data_to_backend(data_dict)
 
-    except serial.SerialException as e:
-        print(f"Error: {e}")
+                except Exception as e:
+                    print(f"Error parsing data: {e}")
 
-if __name__ == "__main__":
+            # Wait for a while before reading the next data
+            time.sleep(1)
+
+        except Exception as e:
+            print(f"Error: {e}")
+            time.sleep(1)
+
+if __name__ == '__main__':
     main()
