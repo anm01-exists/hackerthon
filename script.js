@@ -1,16 +1,26 @@
-const accelSpan = document.getElementById("accel");
-const gyroSpan = document.getElementById("gyro");
+const BACKEND_URL = "http://127.0.0.1:8000/imu"; // Update this!
 
-async function fetchIMUData() {
-  try {
-    const response = await fetch("http://127.0.0.1:8000/imu");
-    const data = await response.json();
-    accelSpan.textContent = `X: ${data.ax}, Y: ${data.ay}, Z: ${data.az}`;
-    gyroSpan.textContent = `X: ${data.gx}, Y: ${data.gy}, Z: ${data.gz}`;
-  } catch (err) {
-    accelSpan.textContent = "Error fetching data";
-    gyroSpan.textContent = "";
-  }
-}
-
-setInterval(fetchIMUData, 1000); // fetch every 1 second
+    async function fetchIMUData() {
+      try {
+        const res = await fetch(BACKEND_URL);
+        if (!res.ok) throw new Error("Failed to fetch");
+    
+        const data = await res.json();
+    
+        document.getElementById("ax").textContent = data.ax.toFixed(2);
+        document.getElementById("ay").textContent = data.ay.toFixed(2);
+        document.getElementById("az").textContent = data.az.toFixed(2);
+    
+        document.getElementById("gx").textContent = data.gx.toFixed(2);
+        document.getElementById("gy").textContent = data.gy.toFixed(2);
+        document.getElementById("gz").textContent = data.gz.toFixed(2);
+    
+        document.getElementById("status").textContent = "✅ Live data updated.";
+      } catch (err) {
+        console.error(err);
+        document.getElementById("status").textContent = "❌ Unable to connect.";
+      }
+    }
+    
+    setInterval(fetchIMUData, 1000); // Poll every second
+    

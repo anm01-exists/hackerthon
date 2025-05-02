@@ -3,15 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IMU Data Dashboard</title>
+  <title>Live IMU Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>IMU Data</h1>
-  <div id="data-display">
-    <p><strong>Accelerometer:</strong> <span id="accel"></span></p>
-    <p><strong>Gyroscope:</strong> <span id="gyro"></span></p>
+  <div class="container">
+    <h1>🚀 IMU Data Dashboard</h1>
+
+    <div class="card">
+      <h2>Accelerometer (m/s²)</h2>
+      <p>X: <span id="ax">--</span></p>
+      <p>Y: <span id="ay">--</span></p>
+      <p>Z: <span id="az">--</span></p>
+    </div>
+
+    <div class="card">
+      <h2>Gyroscope (°/s)</h2>
+      <p>X: <span id="gx">--</span></p>
+      <p>Y: <span id="gy">--</span></p>
+      <p>Z: <span id="gz">--</span></p>
+    </div>
+
+    <p class="status" id="status">Connecting...</p>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
