@@ -12,7 +12,57 @@ body {
   padding: 2rem;
   max-width: 500px;
   text-align: center;
-  display: flex;
+  display: flex;body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #f8fafc;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .container {
+    padding: 2rem;
+    max-width: 1000px;
+    text-align: center;
+  }
+  
+  h1 {
+    color: #38bdf8;
+    margin-bottom: 2rem;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card h2 {
+    margin-top: 0;
+    color: #facc15;
+  }
+  
+  .card p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .status {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #94a3b8;
+  }
+  
   flex-direction: row;
   flex-wrap: wrap;
 }

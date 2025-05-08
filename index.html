@@ -1,47 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Live IMU Dashboard</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>🚀 IMU Data Dashboard</h1>
-
-    <div class="card">
-      <h2>Accelerometer (mg)</h2>
-      <p>X: <span id="ax">--</span></p>
-      <p>Y: <span id="ay">--</span></p>
-      <p>Z: <span id="az">--</span></p>
-    </div>
-
-    <div class="card">
-      <h2>Gyroscope (mrad/s)</h2>
-      <p>X: <span id="gx">--</span></p>
-      <p>Y: <span id="gy">--</span></p>
-      <p>Z: <span id="gz">--</span></p>
-    </div>
-
-    <div class="card">
-      <h2>Magnetometer (mGauss)</h2>
-      <p>X: <span id="mx">--</span></p>
-      <p>Y: <span id="my">--</span></p>
-      <p>Z: <span id="mz">--</span></p>
-    </div>
-
-    <div class="card">
-      <h2>GPS</h2>
-      <p>Latitude: <span id="lat">--</span></p>
-      <p>Longitude: <span id="lon">--</span></p>
-      <p>Altitude: <span id="alt">--</span> m</p>
-    </div>
-    
-
-    <p class="status" id="status">Connecting...</p>
+<div class="grid">
+  <div class="card">
+    <h2>Accelerometer (m/s²)</h2>
+    <p>X: <span id="ax">--</span></p>
+    <p>Y: <span id="ay">--</span></p>
+    <p>Z: <span id="az">--</span></p>
   </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <div class="card">
+    <h2>Gyroscope (°/s)</h2>
+    <p>X: <span id="gx">--</span></p>
+    <p>Y: <span id="gy">--</span></p>
+    <p>Z: <span id="gz">--</span></p>
+  </div>
+
+  <div class="card">
+    <h2>GPS</h2>
+    <p>Latitude: <span id="lat">--</span></p>
+    <p>Longitude: <span id="lon">--</span></p>
+    <p>Altitude: <span id="alt">--</span> m</p>
+  </div>
+
+  <div class="card">
+    <h2>Magnetometer (µT)</h2>
+    <p>X: <span id="mx">--</span></p>
+    <p>Y: <span id="my">--</span></p>
+    <p>Z: <span id="mz">--</span></p>
+  </div>
+</div>
